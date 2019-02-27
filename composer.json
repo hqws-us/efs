@@ -1,0 +1,20 @@
+{
+  "name": "drupal/efs",
+  "type": "drupal-module",
+  "authors": [
+    {
+      "name": "Alejandro Arnau Sancho",
+      "email": "aarnaus@gmail.com"
+    }
+  ],
+  "description": "Provides a plugin type for extra fields that look like real fields, but do not store data.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/efs",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/efs",
+    "source": "http://cgit.drupalcode.org/efs"
+  },
+  "require": { }
+}
