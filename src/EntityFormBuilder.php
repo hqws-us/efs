@@ -4,6 +4,8 @@ namespace Drupal\efs;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Entity\EntityFormBuilderInterface;
+use Drupal\efs\EntityFormBuilderInterface as EfsEntityFormBuilderInterface;
+use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -14,7 +16,7 @@ use Drupal\Core\StringTranslation\TranslationInterface;
 /**
  * Builds entity forms.
  */
-class EntityFormBuilder implements EntityFormBuilderInterface {
+class EntityFormBuilder implements EfsEntityFormBuilderInterface {
 
   /**
    * The entity type manager.
@@ -74,7 +76,13 @@ class EntityFormBuilder implements EntityFormBuilderInterface {
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, FormBuilderInterface $form_builder, ClassResolverInterface $class_resolver, EntityFormBuilderInterface $entity_form_builder, TranslationInterface $string_translation, ModuleHandlerInterface $module_handler) {
+  public function __construct(
+    EntityTypeManagerInterface $entity_type_manager,
+    FormBuilderInterface $form_builder,
+    ClassResolverInterface $class_resolver,
+    EntityFormBuilderInterface $entity_form_builder,
+    TranslationInterface $string_translation,
+    ModuleHandlerInterface $module_handler) {
 
     $this->entityTypeManager = $entity_type_manager;
     $this->entityFormBuilder = $entity_form_builder;
@@ -87,20 +95,34 @@ class EntityFormBuilder implements EntityFormBuilderInterface {
   /**
    * {@inheritdoc}
    */
-  public function getForm(EntityInterface $entity, $operation = 'default', array $form_state_additions = [], string $form_display_class = '\Drupal\Core\Entity\ContentEntityForm') {
-    $form_object = $this->getFormObject($entity, $operation, $form_state_additions, $form_display_class);
-
+  public function getForm(EntityInterface $entity, $operation = 'default', array $form_state_additions = [], $form_class = NULL) {
+    $form_object = $this->getFormObject($entity, $operation, $form_class);
     $form_object->setEntity($entity);
     $form_state = (new FormState())->setFormState($form_state_additions);
-    $form = $this->formBuilder->buildForm($form_object, $form_state);
 
-    return $form;
+    return $this->formBuilder->buildForm($form_object, $form_state);
   }
 
-  public function getFormObject($operation = 'default', string $form_display_class = '\Drupal\Core\Entity\ContentEntityForm') {
-    $form_object_instance = $this->classResolver->getInstanceFromDefinition($form_display_class);
+  /**
+   * Get form-object with an overridden class.
+   *
+   * @param string $entity_type
+   *   The entity type.
+   * @param string $operation
+   *   The entity operation.
+   * @param string|null $form_class
+   *   The form class to override the default. If no class is provided default is used.
+   *
+   * @return EntityFormInterface
+   *   The entity form instance using the overridden class.
+   */
+  public function getFormObject($entity_type, $operation = 'default', $form_class = NULL) {
+    if ($form_class === NULL) {
+      return $this->entityTypeManager->getFormObject($entity_type, $operation);
+    }
 
-    $form_object = $form_object_instance
+    $form_instance = $this->classResolver->getInstanceFromDefinition($form_class);
+    $form_object = $form_instance
       ->setStringTranslation($this->stringTranslation)
       ->setModuleHandler($this->moduleHandler)
       ->setEntityTypeManager($this->entityTypeManager)
