@@ -13,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Base class for 'Extra field formatter' plugin implementations.
  *
+ * @todo Provide a settings validation API to support layout-builder.
+ *
  * @ingroup efs
  */
 abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implements ExtraFieldFormatterPluginInterface {

@@ -6,11 +6,11 @@
  */
 
 // @codingStandardsIgnoreStart
-/** @noinspection PhpDocSignatureInspection */
-/** @noinspection PhpUnusedParameterInspection */
-
+/* @noinspection PhpDocSignatureInspection */
+/* @noinspection PhpUnusedParameterInspection */
 // @codingStandardsIgnoreEnd
 
+use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\ContentEntityFormInterface;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
@@ -19,6 +19,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\efs\Entity\ExtraField;
+use Drupal\efs\Plugin\Block\ExtraFieldBlock;
 
 /**
  * Implements hook_help().
@@ -213,4 +214,26 @@ function efs_form_entity_form_display_edit_form_alter(array &$form, FormStateInt
 function efs_form_entity_view_display_edit_form_alter(array &$form, FormStateInterface $form_state) {
   $form_state->loadInclude('efs', 'inc', 'includes/field_ui');
   efs_field_ui_display_form_alter($form, $form_state);
+}
+
+/**
+ * Implements hook_block_alter().
+ *
+ * This hook implementation is responsible for replacing the plugin
+ * implementation class for the 'extra_field_block' plugin implemented
+ * by the layout_builder module.
+ *
+ * @param array $definitions
+ *   An array of plugins definitions
+ */
+function efs_block_alter(array &$definitions) {
+  foreach ($definitions as $id => &$definition) {
+    [$plugin_id] = explode(PluginBase::DERIVATIVE_SEPARATOR, $id, 2);
+
+    if ($plugin_id !== 'extra_field_block') {
+      continue;
+    }
+
+    $definition['class'] = ExtraFieldBlock::class;
+  }
 }
