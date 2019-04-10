@@ -136,7 +136,13 @@ class ExtraField extends ConfigEntityBase implements ExtraFieldInterface {
    * {@inheritdoc}
    */
   public function composedId() {
-    return $this->getTargetEntityTypeId() . '.' . $this->getBundle() . '.' . $this->getContext() . '.' . $this->getMode() . '.' . $this->getName();
+    return implode('.', [
+      $this->getTargetEntityTypeId(),
+      $this->getBundle(),
+      $this->getContext(),
+      $this->getMode(),
+      $this->getName(),
+    ]);
   }
 
   /**
@@ -191,8 +197,16 @@ class ExtraField extends ConfigEntityBase implements ExtraFieldInterface {
   /**
    * {@inheritdoc}
    */
+  public function getSetting($setting_name) {
+    return $this->settings[$setting_name] ?? NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setSetting($setting_name, $value) {
     $this->settings[$setting_name] = $value;
+
     return $this;
   }
 
