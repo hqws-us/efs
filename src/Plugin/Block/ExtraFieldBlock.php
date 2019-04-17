@@ -25,6 +25,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @see \Drupal\Core\Block\BlockManager
  * @see efs_block_alter()
+ *
+ * @phpcs:disable Drupal.WhiteSpace.ScopeIndent.IncorrectExact
  */
 class ExtraFieldBlock extends BaseBlock {
 
@@ -96,10 +98,7 @@ class ExtraFieldBlock extends BaseBlock {
       return $form;
     }
 
-    /**
-     * @var \Drupal\efs\ExtraFieldFormatterPluginBase $plugin
-     *   Re-create the plugin instance.
-     */
+    /** @var \Drupal\efs\ExtraFieldFormatterPluginBase $plugin */
     $plugin = $this->pluginManager->createInstance($extra_field->getPlugin());
     $settings = $extra_field->getSettings();
     $settings += $plugin::defaultContextSettings($extra_field->getContext());
@@ -139,9 +138,17 @@ class ExtraFieldBlock extends BaseBlock {
    *   The extra-field entity instance or NULL if cannot be loaded.
    */
   private function getExtraField() {
-    [, $entity_type, $entity_bundle, $extra_field_name] = explode(self::DERIVATIVE_SEPARATOR, $this->pluginId);
+    [,
+      $entity_type,
+      $entity_bundle,
+      $extra_field_name,
+    ] = explode(self::DERIVATIVE_SEPARATOR, $this->pluginId);
+
     $extra_fields = $this->entityFieldManager->getExtraFields($entity_type, $entity_bundle);
-    $definition = NestedArray::getValue($extra_fields, [self::VIEW_DISPLAY_CONTEXT, $extra_field_name]);
+    $definition = NestedArray::getValue($extra_fields, [
+      self::VIEW_DISPLAY_CONTEXT,
+      $extra_field_name,
+    ]);
 
     // If the extra-field definition cannot be retrieved
     // notify it and return the base form.

@@ -2,17 +2,18 @@
 
 namespace Drupal\efs\Routing;
 
+use Symfony\Component\Routing\Route;
 use Drupal\Core\ParamConverter\ParamConverterInterface;
 
 /**
- * Parameter converter for upcasting fieldgroup config ids to fieldgroup object.
+ * Parameter converter for upcasting extrafield config ids to extrafield object.
  */
 class ExtraFieldConverter implements ParamConverterInterface {
 
   /**
    * {@inheritdoc}
    */
-  public function applies($definition, $name, \Symfony\Component\Routing\Route $route) {
+  public function applies($definition, $name, Route $route) {
     return isset($definition['type']) && $definition['type'] == 'efs';
   }
 
@@ -25,8 +26,7 @@ class ExtraFieldConverter implements ParamConverterInterface {
       return;
     }
 
-    return [];//efs_load_efs($identifiers[4], $identifiers[0], $identifiers[1], $identifiers[2], $identifiers[3]);
+    return [];
   }
-
 
 }

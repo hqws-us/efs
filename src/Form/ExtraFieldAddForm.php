@@ -8,8 +8,6 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\efs\Entity\ExtraField;
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\field_group\FieldgroupUi;
 
 /**
  * Provides a form for adding a fieldgroup to a bundle.
@@ -170,7 +168,7 @@ class ExtraFieldAddForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('Plugin'),
       '#options' => $plugins,
-      //'#default_value' => $extra_field->getPlugin(),
+      // '#default_value' => $extra_field->getPlugin(),
       '#required' => TRUE,
     ];
 

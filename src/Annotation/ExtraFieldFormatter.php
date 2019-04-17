@@ -10,6 +10,8 @@ use Drupal\Component\Annotation\Plugin;
  * @see \Drupal\efs\ExtraFieldFormatterPluginManager
  *
  * @Annotation
+ *
+ * @phpcs:disable Drupal.NamingConventions.ValidVariableName.LowerCamelName
  */
 class ExtraFieldFormatter extends Plugin {
 
@@ -32,9 +34,9 @@ class ExtraFieldFormatter extends Plugin {
   /**
    * A short description of the formatter type.
    *
-   * @ingroup plugin_translatable
-   *
    * @var \Drupal\Core\Annotation\Translation
+   *
+   * @ingroup plugin_translatable
    */
   public $description;
 
@@ -43,6 +45,6 @@ class ExtraFieldFormatter extends Plugin {
    *
    * @var array
    */
-  public $supported_contexts = array();
+  public $supported_contexts = [];
 
 }

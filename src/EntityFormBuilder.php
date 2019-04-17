@@ -4,14 +4,13 @@ namespace Drupal\efs;
 
 use Drupal\Core\DependencyInjection\ClassResolverInterface;
 use Drupal\Core\Entity\EntityFormBuilderInterface;
-use Drupal\efs\EntityFormBuilderInterface as EfsEntityFormBuilderInterface;
-use Drupal\Core\Entity\EntityFormInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Drupal\Core\Form\FormState;
 use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\efs\EntityFormBuilderInterface as EfsEntityFormBuilderInterface;
 
 /**
  * Builds entity forms.
@@ -111,9 +110,10 @@ class EntityFormBuilder implements EfsEntityFormBuilderInterface {
    * @param string $operation
    *   The entity operation.
    * @param string|null $form_class
-   *   The form class to override the default. If no class is provided default is used.
+   *   The form class to override the default. If no class is provided default
+   *   is used.
    *
-   * @return EntityFormInterface
+   * @return \Drupal\Core\Entity\EntityFormInterface
    *   The entity form instance using the overridden class.
    */
   public function getFormObject($entity_type, $operation = 'default', $form_class = NULL) {

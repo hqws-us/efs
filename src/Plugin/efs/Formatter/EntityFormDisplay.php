@@ -5,7 +5,6 @@ namespace Drupal\efs\Plugin\efs\Formatter;
 use Drupal\Core\Entity\EntityDisplayBase;
 use Drupal\Core\Entity\EntityFormBuilderInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\efs\Entity\ExtraFieldInterface;
 use Drupal\efs\ExtraFieldFormatterPluginBase;
@@ -59,9 +58,9 @@ class EntityFormDisplay extends ExtraFieldFormatterPluginBase {
    */
   public static function defaultContextSettings(string $context) {
     $defaults = [
-        'form_display' => 'default',
-        'form_display_class' => '',
-      ] + parent::defaultSettings();
+      'form_display' => 'default',
+      'form_display_class' => '',
+    ] + parent::defaultSettings();
 
     return $defaults;
 

@@ -1,14 +1,18 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Render\Element;
-use Drupal\Core\Url;
-use Drupal\field_ui\Form\EntityDisplayFormBase;
-use Drupal\efs\Entity\ExtraField;
-use Drupal\Core\Entity\EntityDisplayBase;
+/**
+ * @file
+ * Display entity form alterations.
+ */
+
 use Drupal\Core\Entity\Display\EntityFormDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityDisplayBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
+use Drupal\efs\Entity\ExtraField;
+use Drupal\field_ui\Form\EntityDisplayFormBase;
 
 /**
  * Function to alter the display overview screens.
@@ -301,7 +305,7 @@ function efs_get_extra_fields(string $entity_type, string $bundle, string $conte
  *   The field settings.
  */
 function efs_formatter_settings_update(ExtraField $extra_field, array $settings) {
-  if(!empty($settings['settings_edit_form']['settings']['weight'])){
+  if (!empty($settings['settings_edit_form']['settings']['weight'])) {
     $weight = $settings['settings_edit_form']['settings']['weight'];
     $extra_field->set('weight', $weight);
     unset($settings['settings_edit_form']['settings']['weight']);

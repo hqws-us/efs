@@ -65,7 +65,7 @@ class ExtraFieldForm extends EntityForm {
         '#machine_name' => [
           'exists' => '\Drupal\efs\Entity\ExtraField::load',
         ],
-        '#disabled' => !$extra_field->isNew()
+        '#disabled' => !$extra_field->isNew(),
       ];
     }
 
@@ -82,7 +82,6 @@ class ExtraFieldForm extends EntityForm {
       '#default_value' => $extra_field->getPlugin(),
       '#required' => TRUE,
     ];
-
 
     /* You will need additional form elements for your custom properties. */
 
@@ -101,7 +100,7 @@ class ExtraFieldForm extends EntityForm {
         $extra_field->getBundle(),
         $extra_field->getContext(),
         $extra_field->getMode(),
-        $extra_field->id()
+        $extra_field->id(),
       ];
       $extra_field->set('id', implode('.', $id));
     }
@@ -135,11 +134,12 @@ class ExtraFieldForm extends EntityForm {
    * @return bool
    *   Whether or not the field machine name is taken.
    */
-  public function fieldNameExists($value, $element, FormStateInterface $form_state) {
+  public function fieldNameExists($value, array $element, FormStateInterface $form_state) {
     // Add the field prefix.
     $field_name = $value;
 
     $field_storage_definitions = $this->entityManager->getFieldStorageDefinitions($this->entityTypeId);
     return isset($field_storage_definitions[$field_name]);
   }
+
 }
