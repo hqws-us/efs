@@ -9,6 +9,7 @@
 /* @noinspection PhpDocSignatureInspection */
 /* @noinspection PhpUnusedParameterInspection */
 // @codingStandardsIgnoreEnd
+/* @phpcs:disable Drupal.Semantics.FunctionT.NotLiteralString */
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Cache\CacheBackendInterface;
@@ -222,9 +223,6 @@ function efs_form_entity_view_display_edit_form_alter(array &$form, FormStateInt
  * This hook implementation is responsible for replacing the plugin
  * implementation class for the 'extra_field_block' plugin implemented
  * by the layout_builder module.
- *
- * @param array $definitions
- *   An array of plugins definitions
  */
 function efs_block_alter(array &$definitions) {
   foreach ($definitions as $id => &$definition) {

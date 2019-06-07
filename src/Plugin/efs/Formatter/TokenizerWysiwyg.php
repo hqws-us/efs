@@ -4,7 +4,6 @@ namespace Drupal\efs\Plugin\efs\Formatter;
 
 use Drupal\Core\Entity\EntityDisplayBase;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Field\FormatterPluginManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\efs\Entity\ExtraFieldInterface;
@@ -71,8 +70,8 @@ class TokenizerWysiwyg extends ExtraFieldFormatterPluginBase {
    */
   public static function defaultContextSettings(string $context) {
     $defaults = [
-        'content' => NULL,
-      ] + parent::defaultSettings();
+      'content' => NULL,
+    ] + parent::defaultSettings();
 
     if ($context == 'form') {
       $defaults['required_fields'] = 1;

@@ -21,19 +21,7 @@ interface EntityFormBuilderInterface extends BaseInterface {
    *   The entity to be created or edited.
    * @param string $operation
    *   (optional) The operation identifying the form variation to be returned.
-   *   Defaults to 'default'. This is typically used in routing:
-   *   @code
-   *   _entity_form: node.book_outline
-   *   @endcode
-   *   where "book_outline" is the value of $operation. The class name for the
-   *   form for each operation (edit, delete, etc.) can be found in the form
-   *   section of the handlers entity annotation. For example:
-   *   @code
-   *   handlers = {
-   *     "form" = {
-   *       "delete" = "Drupal\node\Form\NodeDeleteForm",
-   *   @endcode
-   *   Alternatively, the form class can be set from hook_entity_type_build().
+   *   Defaults to 'default'. This is typically used in routing:.
    * @param array $form_state_additions
    *   (optional) An associative array used to build the current state of the
    *   form. Use this to pass additional information to the form, such as the
@@ -43,10 +31,24 @@ interface EntityFormBuilderInterface extends BaseInterface {
    *   default form class from the entity definition will be used.
    *
    * @code
+   *   _entity_form: node.book_outline
+   * @endcode
+   *   where "book_outline" is the value of $operation. The class name for the
+   *   form for each operation (edit, delete, etc.) can be found in the form
+   *   section of the handlers entity annotation. For example:
+   * @code1
+   *   handlers = {
+   *     "form" = {
+   *       "delete" = "Drupal\node\Form\NodeDeleteForm",
+   * @endcode1
+   *   Alternatively, the form class can be set from hook_entity_type_build().
+   *
+   * @code2
    *   $form_state_additions['langcode'] = $langcode;
    *   $form_class = '\Drupal\my_module\Form\CustomFormClass'
-   *   $form = \Drupal::service('entity.form_builder')->getForm($entity, 'default', $form_state_additions, $form_class);
-   * @endcode
+   *   $form = \Drupal::service('entity.form_builder')->getForm($entity,
+   *   'default', $form_state_additions, $form_class);
+   * @endcode2
    *
    * @return array
    *   The processed form for the given entity and operation.

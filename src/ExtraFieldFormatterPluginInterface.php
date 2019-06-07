@@ -38,8 +38,9 @@ interface ExtraFieldFormatterPluginInterface extends PluginInspectionInterface, 
    * Returns a form to configure settings for the formatter.
    *
    * Invoked in field_group_field_ui_display_form_alter to allow
-   * administrators to configure the formatter. The field_group module takes care
-   * of handling submitted form values.
+   * administrators to configure the formatter.
+   * The field_group module takes care of handling submitted
+   * form values.
    *
    * @param \Drupal\field_ui\Form\EntityDisplayFormBase $view_display
    *   The display entity object.

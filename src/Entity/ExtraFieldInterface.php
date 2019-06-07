@@ -85,7 +85,7 @@ interface ExtraFieldInterface extends ConfigEntityInterface {
   public function getName();
 
   /**
-   * Set the plugin settings
+   * Set the plugin settings.
    *
    * @param array $settings
    *   An array of settings.

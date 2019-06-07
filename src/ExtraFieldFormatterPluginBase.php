@@ -8,7 +8,6 @@ use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\efs\Entity\ExtraFieldInterface;
 use Drupal\field_ui\Form\EntityDisplayFormBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for 'Extra field formatter' plugin implementations.
@@ -18,6 +17,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ingroup efs
  */
 abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implements ExtraFieldFormatterPluginInterface {
+
+  /**
+   * The formatter settings.
+   *
+   * @var array
+   */
+  protected $settings;
 
   /**
    * {@inheritdoc}
@@ -36,13 +42,6 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
       $plugin_definition
     );
   }
-
-  /**
-   * The formatter settings.
-   *
-   * @var array
-   */
-  protected $settings;
 
   /**
    * {@inheritdoc}
