@@ -131,7 +131,7 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
     $configuration = [
       'field_definition' => $field,
       'third_party_settings' => [],
-      'settings' => $settings['formatter_settings']['settings'],
+      'settings' => !empty($settings['formatter_settings']['settings']) ? $settings['formatter_settings']['settings'] : [],
       'label' => $settings['formatter_settings']['label'],
       'view_mode' => $view_mode,
     ];
@@ -287,7 +287,7 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
     $configuration = [
       'field_definition' => $field,
       'third_party_settings' => [],
-      'settings' => $settings['settings'],
+      'settings' => !empty($settings['settings']) ? $settings['settings'] : [],
       'label' => $settings['label'],
       'view_mode' => '',
     ];

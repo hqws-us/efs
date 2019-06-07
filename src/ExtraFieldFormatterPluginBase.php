@@ -20,13 +20,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implements ExtraFieldFormatterPluginInterface {
 
   /**
-   * The formatter settings.
-   *
-   * @var array
-   */
-  protected $settings;
-
-  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition) {
@@ -45,6 +38,13 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
   }
 
   /**
+   * The formatter settings.
+   *
+   * @var array
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
   public function view(array $build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field) {
@@ -59,7 +59,7 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
     $form['weight'] = [
       '#type' => 'number',
       '#title' => $this->t('Weight'),
-      '#default_value' => $this->getSetting('weight')
+      '#default_value' => $this->getSetting('weight'),
     ];
 
     return $form;
