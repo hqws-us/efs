@@ -8,6 +8,7 @@ use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\efs\Entity\ExtraFieldInterface;
 use Drupal\field_ui\Form\EntityDisplayFormBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Base class for 'Extra field formatter' plugin implementations.
