@@ -226,7 +226,7 @@ function efs_form_entity_view_display_edit_form_alter(array &$form, FormStateInt
  */
 function efs_block_alter(array &$definitions) {
   foreach ($definitions as $id => &$definition) {
-    [$plugin_id] = explode(PluginBase::DERIVATIVE_SEPARATOR, $id, 2);
+    list($plugin_id) = explode(PluginBase::DERIVATIVE_SEPARATOR, $id, 2);
 
     if ($plugin_id !== 'extra_field_block') {
       continue;

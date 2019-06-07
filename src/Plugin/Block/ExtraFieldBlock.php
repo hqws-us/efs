@@ -30,9 +30,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ExtraFieldBlock extends BaseBlock {
 
-  public const EXTRA_FIELD_ENTITY_ID = 'extra_field';
+  const EXTRA_FIELD_ENTITY_ID = 'extra_field';
 
-  public const VIEW_DISPLAY_CONTEXT = 'display';
+  const VIEW_DISPLAY_CONTEXT = 'display';
 
   /**
    * The storage service.
@@ -138,11 +138,7 @@ class ExtraFieldBlock extends BaseBlock {
    *   The extra-field entity instance or NULL if cannot be loaded.
    */
   private function getExtraField() {
-    [,
-      $entity_type,
-      $entity_bundle,
-      $extra_field_name,
-    ] = explode(self::DERIVATIVE_SEPARATOR, $this->pluginId);
+    list(, $entity_type, $entity_bundle, $extra_field_name) = explode(self::DERIVATIVE_SEPARATOR, $this->pluginId);
 
     $extra_fields = $this->entityFieldManager->getExtraFields($entity_type, $entity_bundle);
     $definition = NestedArray::getValue($extra_fields, [

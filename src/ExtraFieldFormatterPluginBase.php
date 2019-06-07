@@ -55,7 +55,6 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
    * {@inheritdoc}
    */
   public function settingsForm(EntityDisplayFormBase $view_display, array $form, FormStateInterface $form_state, ExtraFieldInterface $extra_field, string $field) {
-    $form = [];
     $form['weight'] = [
       '#type' => 'number',
       '#title' => $this->t('Weight'),
