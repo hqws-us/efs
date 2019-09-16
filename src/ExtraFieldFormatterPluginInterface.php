@@ -32,7 +32,7 @@ interface ExtraFieldFormatterPluginInterface extends PluginInspectionInterface, 
    * @return array
    *   The render array.
    */
-  public function view(array $build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field);
+  public function view(array &$build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field);
 
   /**
    * Returns a form to configure settings for the formatter.

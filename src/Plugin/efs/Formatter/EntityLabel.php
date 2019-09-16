@@ -27,7 +27,7 @@ class EntityLabel extends ExtraFieldFormatterPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array $build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field) {
+  public function view(array &$build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field) {
     $config = $this->getSettings();
 
     $output = $entity->label();

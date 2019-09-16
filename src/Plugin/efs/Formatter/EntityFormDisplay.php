@@ -69,7 +69,7 @@ class EntityFormDisplay extends ExtraFieldFormatterPluginBase {
   /**
    * {@inheritdoc}
    */
-  public function view(array $build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field) {
+  public function view(array &$build, EntityInterface $entity, EntityDisplayBase $display, string $view_mode, ExtraFieldInterface $extra_field) {
     $form_state_additions = [
       'efs' => [
         'entity_type_id' => $entity->getEntityTypeId(),
