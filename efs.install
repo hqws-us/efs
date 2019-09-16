@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Implements hook_install().
+ */
+function efs_install() {
+  module_set_weight('efs', 999);
+}
+
+/**
+ * Sets a high module weight to ensure that the hook efs_entity_view_alter executes the last.
+ */
+function efs_update_8101(){
+  module_set_weight('efs', 999);
+}
