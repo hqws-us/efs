@@ -142,7 +142,8 @@ function efs_entity_view_alter(array &$build, EntityInterface $entity, EntityVie
   $context = 'display';
   if (!empty($extra_fields[$entity_type][$bundle][$context])) {
     foreach ($extra_fields[$entity_type][$bundle][$context] as $name => $field) {
-      if ($display->getComponent($name) && ($field['mode'] == $view_mode || ($field['mode'] == 'default' && $view_mode == 'full'))) {
+      $component = $display->getComponent($name);
+      if ($component && ($field['mode'] == $view_mode || ($field['mode'] == 'default' && $view_mode == 'full'))) {
         $extra_field = ExtraField::load($field['id']);
         $manager = \Drupal::service('plugin.manager.efs.formatters');
         $plugin_id = $extra_field->getPlugin();
@@ -155,7 +156,7 @@ function efs_entity_view_alter(array &$build, EntityInterface $entity, EntityVie
         $plugin->setSettings($settings);
         $result = $plugin->view($build, $entity, $display, $view_mode, $extra_field);
         if (!empty($result)) {
-          $result = $result + ['#cache' => ['max-age' => CacheBackendInterface::CACHE_PERMANENT]];
+          $result = $result + ['#cache' => ['max-age' => CacheBackendInterface::CACHE_PERMANENT], '#weight' => $component['weight']];
         }
         $build[$name] = $result;
       }
