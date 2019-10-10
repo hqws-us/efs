@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\PluginSettingsBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\efs\Entity\ExtraFieldInterface;
+use Drupal\field\Entity\FieldConfig;
 use Drupal\field_ui\Form\EntityDisplayFormBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -58,7 +59,7 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
     $element['weight'] = [
       '#type' => 'number',
       '#title' => $this->t('Weight'),
-      '#default_value' => $this->getSetting('weight'),
+      '#default_value' => $extra_field->get('weight'),
     ];
 
     return $element;
@@ -94,6 +95,30 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
    */
   public function isApplicable(string $entity_type_id, string $bundle) {
     return TRUE;
+  }
+
+  /**
+   * Get the view_display field definitions as options for show in a select.
+   *
+   * @param \Drupal\Core\Entity\EntityDisplayBase $display
+   *   The display entity object.
+   * @param string $type
+   *   The field type filter.
+   *
+   * @return array
+   *   The select options.
+   */
+  protected function getFieldDefinitionsAsOptions(EntityDisplayBase $display, $type = NULL) {
+    $fields = $display->getEntity()->get('fieldDefinitions');
+    $options = [];
+    foreach ($fields as $field) {
+      if ($field instanceof FieldConfig) {
+        if (($type !== NULL && $field->getType() === $type) || $type === NULL) {
+          $options[$field->get('field_name')] = $field->label();
+        }
+      }
+    }
+    return $options;
   }
 
 }

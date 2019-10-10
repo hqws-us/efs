@@ -68,11 +68,11 @@ class View extends ExtraFieldFormatterPluginBase {
    */
   public static function defaultContextSettings(string $context) {
     $defaults = [
-      'view' => '',
-      'arguments' => [],
-      'hide_empty' => FALSE,
-      'check_access' => FALSE,
-    ] + parent::defaultSettings();
+        'view' => '',
+        'arguments' => [],
+        'hide_empty' => FALSE,
+        'check_access' => FALSE,
+      ] + parent::defaultSettings();
 
     if ($context == 'form') {
       $defaults['required_fields'] = 1;
@@ -345,24 +345,27 @@ class View extends ExtraFieldFormatterPluginBase {
    */
   protected function getArguments(EntityInterface $entity, ExtraFieldInterface $extra_field) {
     $arguments = [];
-    foreach ($this->getSetting('arguments') as $key => $argument) {
-      $parts = explode('::', $argument);
-      $field_name = array_shift($parts);
-      $field_component = array_shift($parts);
+    $args = $this->getSetting('arguments');
+    if (!empty($args) && is_array($args)) {
+      foreach ($args as $key => $argument) {
+        $parts = explode('::', $argument);
+        $field_name = array_shift($parts);
+        $field_component = array_shift($parts);
 
-      if (isset($entity->entityKeys[$key])) {
-        $arguments[$key] = $entity->entityKeys[$key];
-      }
-      elseif ($entity->hasField($field_name)) {
-        /** @var \Drupal\Core\Field\FieldItemListInterface $field_item */
-        $field_item = $entity->{$field_name};
-        $property_name = $field_component ?: $field_item->getItemDefinition()
-          ->getMainPropertyName();
-        $arguments[$key] = implode('+', (array) array_column($field_item->getValue(), $property_name));
-      }
-      else {
-        // Probably, this argument is token.
-        $arguments[$key] = $this->token->replace($argument, [$extra_field->get('entity_type') => $entity], ['clear' => TRUE]);
+        if (isset($entity->entityKeys[$key])) {
+          $arguments[$key] = $entity->entityKeys[$key];
+        }
+        elseif ($entity->hasField($field_name)) {
+          /** @var \Drupal\Core\Field\FieldItemListInterface $field_item */
+          $field_item = $entity->{$field_name};
+          $property_name = $field_component ?: $field_item->getItemDefinition()
+            ->getMainPropertyName();
+          $arguments[$key] = implode('+', (array) array_column($field_item->getValue(), $property_name));
+        }
+        else {
+          // Probably, this argument is token.
+          $arguments[$key] = $this->token->replace($argument, [$extra_field->get('entity_type') => $entity], ['clear' => TRUE]);
+        }
       }
     }
     return array_values($arguments);
