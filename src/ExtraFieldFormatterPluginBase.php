@@ -100,7 +100,7 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
   /**
    * Get the view_display field definitions as options for show in a select.
    *
-   * @param \Drupal\Core\Entity\EntityDisplayBase $display
+   * @param \Drupal\field_ui\Form\EntityDisplayFormBase $view_display
    *   The display entity object.
    * @param string $type
    *   The field type filter.
@@ -108,8 +108,8 @@ abstract class ExtraFieldFormatterPluginBase extends PluginSettingsBase implemen
    * @return array
    *   The select options.
    */
-  protected function getFieldDefinitionsAsOptions(EntityDisplayBase $display, $type = NULL) {
-    $fields = $display->getEntity()->get('fieldDefinitions');
+  protected function getFieldDefinitionsAsOptions(EntityDisplayFormBase $view_display, $type = NULL) {
+    $fields = $view_display->getEntity()->get('fieldDefinitions');
     $options = [];
     foreach ($fields as $field) {
       if ($field instanceof FieldConfig) {
