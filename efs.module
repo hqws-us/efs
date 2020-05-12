@@ -169,6 +169,7 @@ function efs_entity_view_alter(array &$build, EntityInterface $entity, EntityVie
  */
 function efs_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
   $build_info = $form_state->getBuildInfo();
+
   if (!empty($build_info['callback_object']) && $build_info['callback_object'] instanceof ContentEntityFormInterface) {
     /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_object */
     $form_object = $build_info['callback_object'];
