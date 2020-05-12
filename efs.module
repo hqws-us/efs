@@ -178,7 +178,7 @@ function efs_form_alter(array &$form, FormStateInterface $form_state, $form_id) 
     $entity_type = $entity->getEntityTypeId();
     $bundle = $entity->bundle();
     $context = 'form';
-    $view_mode = $form_object->getOperation();
+    $view_mode = $display->getMode();
     $build = [
       'form' => &$form,
       'form_state' => $form_state,
