@@ -4,7 +4,7 @@ services:
     parent: default_plugin_manager
   efs.subscriber:
     class: Drupal\efs\Routing\RouteSubscriber
-    arguments: ['@entity.manager']
+    arguments: ['@entity_type.manager']
     tags:
      - { name: event_subscriber }
   efs.param_converter:
