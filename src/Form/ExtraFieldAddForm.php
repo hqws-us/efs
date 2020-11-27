@@ -201,7 +201,7 @@ class ExtraFieldAddForm extends FormBase {
     $extra_field = ExtraField::create($values);
     $extra_field->save();
 
-    drupal_set_message(t('New field %label successfully created.', ['%label' => $values['label']]));
+    $this->messenger()->addStatus(t('New field %label successfully created.', ['%label' => $values['label']]));
 
     $form_state->setRedirectUrl($this->getFieldUiRoute());
     Cache::invalidateTags(['entity_field_info']);

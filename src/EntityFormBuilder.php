@@ -122,6 +122,8 @@ class EntityFormBuilder implements EfsEntityFormBuilderInterface {
     }
 
     $form_instance = $this->classResolver->getInstanceFromDefinition($form_class);
+    // TODO: Drupal Rector Notice: Please delete the following comment after you've made any necessary changes.
+    // We are assuming that we want to use the `entity_type.manager` service since no method was called here directly. Please confirm this is the case. See https://www.drupal.org/node/2549139 for more information.
     $form_object = $form_instance
       ->setStringTranslation($this->stringTranslation)
       ->setModuleHandler($this->moduleHandler)
@@ -129,7 +131,7 @@ class EntityFormBuilder implements EfsEntityFormBuilderInterface {
       ->setOperation($operation)
       // The entity manager cannot be injected due to a circular dependency.
       // @todo Remove this set call in https://www.drupal.org/node/2603542.
-      ->setEntityManager(\Drupal::entityManager());
+      ->setEntityManager(\Drupal::service('entity_type.manager'));
 
     return $form_object;
   }
