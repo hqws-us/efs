@@ -152,7 +152,7 @@ function efs_field_ui_display_form_alter(array &$form, FormStateInterface $form_
       $query = ['destination' => $current_url->toString()];
       $delete_route = Url::fromRoute('entity.extra_field.delete_form', ['extra_field' => $id], ['query' => $query]);
 
-      $table[$name]['settings_edit']['#suffix'] .= Link::fromTextAndUrl(t('delete'), $delete_route);
+      $table[$name]['settings_edit']['#suffix'] .= Link::fromTextAndUrl(t('delete'), $delete_route)->toString();
     }
   }
 }
