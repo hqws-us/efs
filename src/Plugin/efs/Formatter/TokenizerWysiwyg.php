@@ -90,7 +90,7 @@ class TokenizerWysiwyg extends ExtraFieldFormatterPluginBase {
     $content = $settings['content']['value'];
     $element = [
       '#type' => 'processed_text',
-      '#text' => $this->token->replace($content, [$extra_field->get('entity_type') => $entity], ['clear' => TRUE]),
+      '#text' => $this->token->replace($content, [$this->getTokenType($extra_field) => $entity], ['clear' => TRUE]),
       '#format' => $settings['content']['format'],
       '#filter_types_to_skip' => [],
     ];
@@ -120,10 +120,19 @@ class TokenizerWysiwyg extends ExtraFieldFormatterPluginBase {
     // Show the token help relevant to this pattern type.
     $form['token_help'] = [
       '#theme' => 'token_tree_link',
-      '#token_types' => [$extra_field->get('entity_type')],
+      '#token_types' => [$this->getTokenType($extra_field)],
     ];
 
     return $form;
+  }
+
+  protected function getTokenType($extra_field) {
+    $entities = \Drupal::entityTypeManager()->getDefinitions();
+    $entity_type = $extra_field->get('entity_type');
+    if (!empty($entities[$entity_type])) {
+      return $entities[$entity_type]->get('token_type');
+    }
+    return NULL;
   }
 
   /**
