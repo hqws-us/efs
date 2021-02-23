@@ -112,7 +112,7 @@ class TokenizerWysiwyg extends ExtraFieldFormatterPluginBase {
       '#type' => 'text_format',
       '#default_value' => !empty($settings['content']['value']) ? $settings['content']['value'] : NULL,
       '#format' => !empty($settings['content']['format']) ? $settings['content']['format'] : filter_default_format(),
-      '#token_types' => [$extra_field->get('entity_type')],
+      '#token_types' => [$this->getTokenType($extra_field)],
       '#element_validate' => ['token_element_validate'],
       '#after_build' => ['token_element_validate'],
     ];
