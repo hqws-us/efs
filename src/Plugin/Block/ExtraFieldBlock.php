@@ -6,6 +6,7 @@ use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\efs\ExtraFieldFormatterPluginManager;
 use Drupal\layout_builder\Plugin\Block\ExtraFieldBlock as BaseBlock;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -171,6 +172,15 @@ class ExtraFieldBlock extends BaseBlock {
     }
 
     return $extra_field;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function build() {
+    $build = parent::build();
+    $build['#access'] = FALSE;
+    return $build;
   }
 
 }

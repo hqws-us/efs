@@ -156,7 +156,10 @@ function efs_entity_view_alter(array &$build, EntityInterface $entity, EntityVie
         $plugin->setSettings($settings);
         $result = $plugin->view($build, $entity, $display, $view_mode, $extra_field);
         if (!empty($result)) {
-          $result = $result + ['#cache' => ['max-age' => CacheBackendInterface::CACHE_PERMANENT], '#weight' => $component['weight']];
+          $result = $result + [
+              '#cache' => ['max-age' => CacheBackendInterface::CACHE_PERMANENT],
+              '#weight' => $component['weight'],
+            ];
         }
         $build[$name] = $result;
       }
@@ -230,14 +233,17 @@ function efs_form_entity_view_display_edit_form_alter(array &$form, FormStateInt
  * by the layout_builder module.
  */
 function efs_block_alter(array &$definitions) {
-  foreach ($definitions as $id => &$definition) {
-    list($plugin_id) = explode(PluginBase::DERIVATIVE_SEPARATOR, $id, 2);
-
-    if ($plugin_id !== 'extra_field_block') {
-      continue;
+  $fields = ExtraField::loadMultiple(NULL);
+  foreach ($fields as $id => $entity) {
+    /** @var ExtraField $entity */
+    $key = ['extra_field_block'];
+    $key[] = $entity->get('entity_type');
+    $key[] = $entity->get('bundle');
+    $key[] = $entity->get('field_name') . '_' . $entity->get('mode');
+    $plugin_id = implode(PluginBase::DERIVATIVE_SEPARATOR, $key);
+    if (!empty($definitions[$plugin_id])) {
+      $definitions[$plugin_id]['class'] = ExtraFieldBlock::class;
     }
-
-    $definition['class'] = ExtraFieldBlock::class;
   }
 }
 
