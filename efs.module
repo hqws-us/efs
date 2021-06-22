@@ -242,7 +242,8 @@ function efs_block_alter(array &$definitions) {
     $key[] = $entity->get('field_name') . '_' . $entity->get('mode');
     $plugin_id = implode(PluginBase::DERIVATIVE_SEPARATOR, $key);
     if (!empty($definitions[$plugin_id])) {
-      $definitions[$plugin_id]['class'] = ExtraFieldBlock::class;
+      //$definitions[$plugin_id]['class'] = ExtraFieldBlock::class;
+      unset($definitions[$plugin_id]);
     }
   }
 }
