@@ -95,6 +95,12 @@ function efs_entity_presave(EntityInterface $entity) {
     return;
   }
 
+
+  // Don't do anything for layout builder.
+  if ($entity->getThirdPartySetting('layout_builder', 'enabled')) {
+    return;
+  }
+
   $extra_fields = efs_entity_extra_field_info();
   $entity_type = $entity->getTargetEntityTypeId();
   $bundle = $entity->getTargetBundle();

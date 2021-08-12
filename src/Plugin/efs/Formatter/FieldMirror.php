@@ -4,6 +4,7 @@ namespace Drupal\efs\Plugin\efs\Formatter;
 
 use Drupal\Core\Entity\EntityDisplayBase;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FormatterPluginManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -69,10 +70,10 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
    */
   public static function defaultContextSettings(string $context) {
     $defaults = [
-      'field' => NULL,
-      'formatter' => NULL,
-      'formatter_settings' => ['label' => 'above', 'settings' => []],
-    ] + parent::defaultSettings();
+        'field' => NULL,
+        'formatter' => NULL,
+        'formatter_settings' => ['label' => 'above', 'settings' => []],
+      ] + parent::defaultSettings();
 
     if ($context == 'form') {
       $defaults['required_fields'] = 1;
@@ -238,6 +239,9 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
       if ($field instanceof FieldConfig) {
         $options[$field->get('field_name')] = $field->label();
       }
+      elseif ($field instanceof BaseFieldDefinition) {
+        $options[$field->getName()] = $field->getLabel();
+      }
     }
     return $options;
   }
@@ -256,7 +260,7 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
   protected function getFieldSelectedFormatters(string $field_name, array $fields) {
     $options = [];
     $field = $fields[$field_name];
-    $field_type = $field->get('field_type');
+    $field_type = $field instanceof BaseFieldDefinition ? $field->getType() : $field->get('field_type');
     $definitions = $this->formatter->getDefinitions();
     foreach ($definitions as $id => $def) {
       if (in_array($field_type, $def['field_types'])) {
@@ -283,7 +287,7 @@ class FieldMirror extends ExtraFieldFormatterPluginBase {
    * @return array
    *   The settings of selected formatter.
    */
-  protected function getFieldSelectedFormatterSettings(string $plugin_id, FieldConfig $field, array $settings, array $form, FormStateInterface $form_state) {
+  protected function getFieldSelectedFormatterSettings(string $plugin_id, $field, array $settings, array $form, FormStateInterface $form_state) {
     $configuration = [
       'field_definition' => $field,
       'third_party_settings' => [],
