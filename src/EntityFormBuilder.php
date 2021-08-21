@@ -95,7 +95,7 @@ class EntityFormBuilder implements EfsEntityFormBuilderInterface {
    * {@inheritdoc}
    */
   public function getForm(EntityInterface $entity, $operation = 'default', array $form_state_additions = [], $form_class = NULL) {
-    $form_object = $this->getFormObject($entity, $operation, $form_class);
+    $form_object = $this->getFormObject($entity->getEntityTypeId(), $operation, $form_class);
     $form_object->setEntity($entity);
     $form_state = (new FormState())->setFormState($form_state_additions);
 
