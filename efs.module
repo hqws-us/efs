@@ -15,14 +15,12 @@
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\ContentEntityFormInterface;
-use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\Display\EntityDisplayInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\efs\Entity\ExtraField;
-use Drupal\efs\Plugin\Block\ExtraFieldBlock;
 
 /**
  * Implements hook_help().
@@ -183,6 +181,9 @@ function efs_form_alter(array &$form, FormStateInterface $form_state, $form_id) 
     /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_object */
     $form_object = $build_info['callback_object'];
     $display = $form_object->getFormDisplay($form_state);
+    if ($display === NULL) {
+      return;
+    }
     $entity = $form_object->getEntity();
     $extra_fields = efs_entity_extra_field_info();
     $entity_type = $entity->getEntityTypeId();
