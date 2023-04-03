@@ -1,5 +1,5 @@
 name: Extra Field Suite
 type: module
 description: Provides a plugin type for extra fields that look like real fields, but do not store data.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8.8 || ^9 || ^10
 package: Fields
